@@ -3,7 +3,7 @@
 //Attacking and repairing each cost 1 energy point.
 //Default constructor
 ClapTrap::ClapTrap() 
-    : _name("Default"), _hitPoints(10), _energyPoints(10), _attackDamage(0) 
+    : _name("Default"), _hitPoints(10), _energyPoints(10), _attackDamage(0), _maxHitPoints(10)
 {
     std::cout << "ClapTrap default constructor called\n";
 }
@@ -34,7 +34,7 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& rhs)
 
 // Parameterized constructor (required by subject)
 ClapTrap::ClapTrap(const std::string& name) 
-    : _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0) 
+    : _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0), _maxHitPoints(10) 
 {
     std::cout << "ClapTrap constructor with name called\n"  << std::endl;
 }
@@ -101,10 +101,22 @@ void ClapTrap::beRepaired(unsigned int amount)
         std::cout << "ClapTrap " << _name << " cannot repair due to insufficient energy!\n" << std::endl;
         return;
     }
+    if (_hitPoints + amount > _maxHitPoints)
+    {
+        amount = _maxHitPoints - _hitPoints; // Adjust amount to not exceed max hit points
+        if (amount == 0) 
+        {
+            std::cout << "ClapTrap " << _name << " is already at maximum hit points (" << _maxHitPoints << "). No repair needed.\n" << std::endl;
+            return;
+        }
+    }
+    _energyPoints--; // // Decrease energy points by 1 for repairing
     newHitPoints = _hitPoints + amount;
     _hitPoints = newHitPoints;
-    _energyPoints--; // // Decrease energy points by 1 for repairing
     std::cout << "ClapTrap " << _name << " repairs itself for " << amount 
               << " points, HP now " << _hitPoints 
               << " ;Repair Cost:1 EP; (EP left: " << _energyPoints << ")\n" << std::endl;
 }
+
+    
+

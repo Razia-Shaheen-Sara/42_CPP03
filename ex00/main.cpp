@@ -34,6 +34,15 @@ int main()
     std::cout << "\n=== Test: beRepaired(3) → should increase HP by 3 ===\n";
     clap.beRepaired(3);
 
+    std::cout << "\n=== Test: beRepaired(100) → should only repair until _maxHitPoints ===\n";
+    clap.beRepaired(100);
+
+    std::cout << "\n=== Test: beRepaired(1) → should not repair for being at maxHitPoints  ===\n";
+    clap.beRepaired(1); // should not change anything
+
+    std::cout << "\n=== Test: beRepaired(0) → should not change anything ===\n";
+    clap.beRepaired(0); // should not change anything
+    
     std::cout << "\n=== Test: attack after damage & repair ===\n";
     clap.attack("DummyTarget");
 

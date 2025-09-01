@@ -10,19 +10,17 @@ class ClapTrap
         unsigned int	_hitPoints;
         unsigned int	_energyPoints;
         unsigned int	_attackDamage;
+		unsigned int	_maxHitPoints; // To track maximum hit points
 
     public:
-		ClapTrap();                               // Default constructor
-		ClapTrap(const ClapTrap& other);          // Copy constructor
-		ClapTrap& operator=(const ClapTrap& other); // Assignment operator
-		~ClapTrap();                              // Destructor
+        ClapTrap();                               // Default constructor
+        ClapTrap(const ClapTrap& source);          // Copy constructor
+        ClapTrap& operator=(const ClapTrap& rhs); // Copy assignment operator
+        ~ClapTrap();                              // Destructor
 
-		// Subject-required constructor
-		ClapTrap(const std::string& name);
+		ClapTrap(const std::string& name);        // Parameterized constructor
         void attack(const std::string& target);
         void takeDamage(unsigned int amount);
         void beRepaired(unsigned int amount);
-
 };
 #endif
-
