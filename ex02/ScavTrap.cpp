@@ -14,7 +14,7 @@
 // Default constructor
 ScavTrap::ScavTrap() : ClapTrap() 
 {
-    _name = "Default_Scavvy";
+    _name = "Default_ScavTrap";
     _hitPoints = 100;
     _energyPoints = 50;
     _attackDamage = 20;
