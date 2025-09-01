@@ -18,6 +18,7 @@ ScavTrap::ScavTrap() : ClapTrap()
     _hitPoints = 100;
     _energyPoints = 50;
     _attackDamage = 20;
+    _maxHitPoints = 100; // Set max hit points for ScavTrap
     std::cout << "ScavTrap default constructor called \n" << "Name: "
     << _name << ", Hit Points: " << _hitPoints
     << ", Energy Points: " << _energyPoints
@@ -30,6 +31,7 @@ ScavTrap::ScavTrap(const std::string& name) : ClapTrap(name)
     _hitPoints = 100;
     _energyPoints = 50;
     _attackDamage = 20;
+    _maxHitPoints = 100; // Set max hit points for ScavTrap
     std::cout << "ScavTrap parameterized constructor called "
     << "Name: " << _name << ", Hit Points: " << _hitPoints 
     << ", Energy Points: " << _energyPoints 

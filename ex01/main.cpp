@@ -28,6 +28,12 @@ int main()
     std::cout << "\n=== Repair: inherited ===\n";
     scav2.beRepaired(25);
 
+    std::cout << "\n=== Repair max: inherited ===\n";
+    scav2.beRepaired(100); // should only repair to max HP
+    
+    std::cout << "\n=== Repair: inherited; should not do anything because of max ===\n";
+    scav2.beRepaired(1);   // should not change anything
+
     std::cout << "\n=== guardGate: new message ===\n";
     scav2.guardGate();
 
@@ -54,8 +60,20 @@ int main()
     std::cout << "\n=== guardGate: assigned instance ===\n";
     scav4.guardGate();
 
+    std::cout << "\n=== Energy exhaustion test ===\n";
+    ScavTrap energyTest("NoEnergy");
+    for (int i = 0; i <= 50; ++i) // 50 EP + 1 fail
+        energyTest.attack("DummyTarget");
+
+    std::cout << "\n=== HP exhaustion test ===\n";
+    ScavTrap hpTest("NoHP");
+    hpTest.takeDamage(120); // kill immediately
+    hpTest.attack("TargetAfterDeath"); // should fail
+    hpTest.beRepaired(10);             // should fail
+    hpTest.guardGate();                // should still work, not dependent on HP/EP
+
     std::cout << "\n=== Destructor order: destroys in reverse creation ===\n";
-    std::cout << "Expected: scav4 (renamed to SC4V-TP) -> scav3 (copy of SC4V-TP) -> scav2 (SC4V-TP) -> scav (Default_ScavTrap)\n";
+    std::cout << "Expected: noHP -> NoEnergy -> scav4 (renamed to SC4V-TP) -> scav3 (copy of SC4V-TP) -> scav2 (SC4V-TP) -> scav (Default_ScavTrap)\n";
 
     // Note on destructors: Each ScavTrap object is destroyed in reverse order of creation.
     // First the derived (~ScavTrap) destructor runs, then the base (~ClapTrap) destructor.
