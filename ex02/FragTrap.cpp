@@ -13,6 +13,7 @@ FragTrap::FragTrap() : ClapTrap()
     _hitPoints = 100;
     _energyPoints = 50;
     _attackDamage = 30;
+    _maxHitPoints = 100; // Set max hit points for FragTrap
     std::cout << "FragTrap default constructor called \n" << "Name: "
     << _name << ", Hit Points: " << _hitPoints
     << ", Energy Points: " << _energyPoints
@@ -25,6 +26,7 @@ FragTrap::FragTrap(const std::string& name) : ClapTrap(name)
     _hitPoints = 100;
     _energyPoints = 50;
     _attackDamage = 30;
+    _maxHitPoints = 100; // Set max hit points for FragTrap
     std::cout << "FragTrap parameterized constructor called \n"
     << "Name: " << _name << ", Hit Points: " << _hitPoints 
     << ", Energy Points: " << _energyPoints 

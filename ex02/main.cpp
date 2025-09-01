@@ -25,8 +25,14 @@ int main()
     std::cout << "\n=== TakeDamage: inherited ===\n";
     frag1.takeDamage(50);
 
-    std::cout << "\n=== Repair: inherited ===\n";
+    std::cout << "\n=== beRepaired(25): inherited ===\n";
     frag1.beRepaired(25);
+
+    std::cout << "\n=== beRepaired(100): inherited ===\n";
+    frag1.beRepaired(100); // should only repair to max HP
+    
+    std::cout << "\n=== Repair: inherited; should not do anything because of max ===\n";
+    frag1.beRepaired(1);  
 
     std::cout << "\n=== highfive: new message ===\n";
     frag1.highFivesGuys();
@@ -41,20 +47,31 @@ int main()
     fragCopy.highFivesGuys();
 
     std::cout << "\n=== Copy assignment: default constructor runs first, then base + derived assignment ===\n";
-    FragTrap frag3;
-    frag3 = frag1;
+    FragTrap fragAssigned;
+    fragAssigned = frag1;
 
     // Note on copy assignment: Before the assignment, the default constructor runs
-    // to create the target object(frag3). Then the assignment operator copies values from the source.
+    // to create the target object(fragAssined). Then the assignment operator copies values from the source.
 
     std::cout << "\n=== Attack: assigned instance behaves like original ===\n";
-    frag3.attack("Assigned Enemy");
+    fragAssigned.attack("Assigned Enemy");
 
     std::cout << "\n=== highfive: assigned instance ===\n";
-    frag3.highFivesGuys();
+    fragAssigned.highFivesGuys();
+    
+    std::cout << "\n=== Energy exhaustion test ===\n";
+    FragTrap energyTest("NoEnergyFrag");
+    for (int i = 0; i <= 100; ++i) // 100 EP + 1 fail
+        energyTest.attack("DummyTarget");
+
+    std::cout << "\n=== HP exhaustion test ===\n";
+    FragTrap hpTest("NoHPFrag");
+    hpTest.takeDamage(150); // kill immediately
+    hpTest.attack("TargetAfterDeath"); // should fail
+    hpTest.beRepaired(10);             // should fail
 
     std::cout << "\n=== Destructor order: destroys in reverse creation ===\n";
-    std::cout << "Expected: frag3 (renamed to FRAG-TP) -> fragCopy (copy of FRAG-TP) -> frag (FRAG-TP) -> frag (Default_FragTrap)\n";
+    std::cout << "Expected: hpTest -> energyTest ->fragAssigned (renamed to FRAG-TP) -> fragCopy (copy of FRAG-TP) -> frag (FRAG-TP) -> frag (Default_FragTrap)\n";
 
     // Note on destructors: Each FragTrap object is destroyed in reverse order of creation.
     // First the derived (~FragTrap) destructor runs, then the base (~ClapTrap) destructor.

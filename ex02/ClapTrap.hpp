@@ -10,6 +10,7 @@ class ClapTrap
         unsigned int	_hitPoints;
         unsigned int	_energyPoints;
         unsigned int	_attackDamage;
+        unsigned int	_maxHitPoints; // To track maximum hit points
 
     public:
 		ClapTrap();                               // Default constructor
