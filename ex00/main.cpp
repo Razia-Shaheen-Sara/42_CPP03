@@ -42,17 +42,24 @@ int main()
     for (int i = 0; i <= 10; ++i)     // 10 hits + 1 fail
     energyTest.attack("DummyTarget");
 
-    std::cout << "\n=== Test: HitPoint exhaustion ===\n";
+    std::cout << "\n=== Test: HitPoint exhaustion on fresh instance ===\n";
     ClapTrap hpTest("CLP_HP"); // fresh instance → HP = 10
     hpTest.takeDamage(5);  // HP → 5
     hpTest.takeDamage(5);  // HP → 0
+    hpTest.takeDamage(5);  // HP → 0 (cannot go negative)
 
     std::cout << "\n=== Test: action with 0 HP → should fail ===\n";
     hpTest.attack("DummyTarget");    // cannot attack, HP = 0
     hpTest.beRepaired(3);            // cannot repair, HP = 0
+    hpTest.takeDamage(2);            // cannot take more damage, HP = 0
 
-    std::cout << "\n=== Destructor prints once per object, including  default constructor, copy" 
-            << " constructor and assignment operator objects ===\n" << std::endl;
+    std::cout << "\n=== Destructor prints once per object ==> \n"
+            <<  "===parameterized, regular, \n"
+            << "===prarameterized, energy exhaustion, \n"
+            << "===parameterized, hitpoint exhaustion, \n"
+            << "===default constructor, \n"
+            << "===copy constructor (also default)and, \n"
+            << "===assignment operator objects ===\n" << std::endl;
 
     return 0;
 }

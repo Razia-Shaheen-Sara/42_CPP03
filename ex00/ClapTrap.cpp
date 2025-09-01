@@ -71,7 +71,7 @@ void ClapTrap::takeDamage(unsigned int amount)
     }
     if (_hitPoints == 0)
     {
-        std::cout << "ClapTrap " << _name << " is already dead because hitPoints = 0!\n" << std::endl;
+        std::cout << "ClapTrap " << _name << " cannot take any damage because hitPoints = 0!\n" << std::endl;
         return;
     }
     if (amount >= _hitPoints) //prevent negative hit points
